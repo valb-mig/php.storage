@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: storage_php
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/var/www
+      - ./uploads:/var/www/uploads
+    environment:
+      - APP_ENV=local
