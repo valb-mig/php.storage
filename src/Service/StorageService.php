@@ -6,12 +6,20 @@ use App\Contract\StorageServiceContract;
 
 class StorageService implements StorageServiceContract
 {
-    public function list(string $dir): array
+    public static function list(string $dir): array
     {
-        return [];
+        try {
+            if(!is_dir($dir)) {
+                throw new \Exception("'$dir' is not a directory");
+            }
+
+            return scandir($dir);
+        } catch (\Exception $e) {
+            throw new \ErrorException($e->getMessage());
+        }
     }
 
-    public function upload(string $dir, array $file): string
+    public static function upload(string $dir, array $file): string
     {
         return '';
     }

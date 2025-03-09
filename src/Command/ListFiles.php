@@ -14,13 +14,13 @@ use Symfony\Component\Console\Input\{
 
 use Symfony\Component\Console\Output\OutputInterface;
 
-use App\Service\FileService;
+use App\Service\StorageService;
 
 #[AsCommand(
-  name: 'list',
+  name: 'storage:list',
   description: 'List files',
   hidden: false,
-  aliases: ['-l']
+  aliases: ['storage:list']
 )]
 class ListFiles extends Command
 {
@@ -32,17 +32,20 @@ class ListFiles extends Command
 
   public function execute(InputInterface $input, OutputInterface $output): int
   {
-    $dir = $input->getArgument('dir');
+    try {
+      $dir = $input->getArgument('dir');
 
-    $output->writeln("Listing files in $dir");
+      $output->writeln("Listing files in '$dir'");
+  
+      $files = StorageService::list($dir);
+  
+      $output->writeln(print_r($files));
+  
+    } catch(\Exception $e) {
+      $output->writeln($e->getMessage());
+      return Command::FAILURE;
+    }
 
-    $fileService = new FileService();
-
-    $files = $fileService->list($dir);
-
-    dd($files);
-
-    $output->writeln("");
     return Command::SUCCESS;
   }
 }

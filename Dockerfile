@@ -13,4 +13,4 @@ RUN composer install
 
 RUN chmod -R 777 /var/www/uploads
 
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+CMD ["php", "-S", "0.0.0.0:9099", "-t", "public"]

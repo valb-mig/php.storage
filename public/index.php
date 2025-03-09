@@ -4,14 +4,27 @@ require_once __DIR__ . '/../src/bootstrap.php';
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\App;
+use App\Controller\ApiStorageController;
 
-// $app = new App();
+$app->post('/api', function (Request $req, Response $res){
+    $res
+        ->getBody()
+        ->write(json_encode([
+            'status' => 'success'
+        ]));
 
-// $app->post('/upload', function (Request $request, Response $response) {
-// });
+    return $res->withHeader('Content-Type', 'application/json')->withStatus(200);
+});
 
-// $app->get('/files', function (Request $request, Response $response) {
-// });
+$app->group('/api', function ($group) {
+    $group->post('/add', function (Request $req, Response $res){
+        ApiStorageController::add($req, $res);
+    });
 
-// $app->run();
+    $group->get('/list', function (Request $req, Response $res){
+        return ApiStorageController::list($req, $res);
+    });
+});
+
+
+$app->run();

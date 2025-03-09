@@ -4,6 +4,6 @@ namespace App\Contract;
 
 interface StorageServiceContract
 {
-    public function list(string $dir): array;
-    public function upload(string $dir, array $file): string;
+    public static function list(string $dir): array;
+    public static function upload(string $dir, array $file): string;
 }
