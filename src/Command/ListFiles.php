@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Command;
 
@@ -17,10 +18,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use App\Service\StorageService;
 
 #[AsCommand(
-  name: 'storage:list',
+  name: 'list',
   description: 'List files',
   hidden: false,
-  aliases: ['storage:list']
+  aliases: ['list']
 )]
 class ListFiles extends Command
 {
@@ -33,13 +34,16 @@ class ListFiles extends Command
   public function execute(InputInterface $input, OutputInterface $output): int
   {
     try {
+
       $dir = $input->getArgument('dir');
 
-      $output->writeln("Listing files in '$dir'");
-  
+      if(str_contains($dir, '..')) {
+        throw new \Exception('Directory is not allowed');
+      }
+
+      $output->writeln("Listing files in '$dir' \n");
       $files = StorageService::list($dir);
-  
-      $output->writeln(print_r($files));
+      $output->writeln(print_r($files, true));
   
     } catch(\Exception $e) {
       $output->writeln($e->getMessage());

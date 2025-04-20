@@ -1,12 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller;
 
 use App\Entity\Response;
-use App\Object\Status;
+use App\Enum\Status;
 use App\Service\StorageService;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\{
+    ServerRequestInterface,
+    ResponseInterface
+};
 
 class ApiStorageController
 {
@@ -16,12 +19,10 @@ class ApiStorageController
 
     public static function get(ServerRequestInterface $request, ResponseInterface $response)
     {
-
     }
 
     public static function remove(ServerRequestInterface $request, ResponseInterface $response)
     {
-        
     }
 
     public static function list(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
