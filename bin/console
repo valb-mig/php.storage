@@ -3,10 +3,20 @@
 declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';
-use App\Command\ListFiles;
+use App\Command\{
+    ListFiles,
+    RemoveFile
+};
 use Symfony\Component\Console\Application;
 
 $app = new Application();
-$app->add(new ListFiles());
+
+foreach([
+    ListFiles::class,
+    RemoveFile::class
+] as $command) {
+    $app->add(new $command());
+}
+
 $app->run();
 ?>
