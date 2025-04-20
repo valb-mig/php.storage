@@ -1,15 +1,18 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Enum\Status;
+
 class Response
 {
-    public string $status;
+    public Status $status;
     public string $message;
     public mixed $data;
 
 
-    public function __construct(string $status, string $message, mixed $data = null)
+    public function __construct(Status $status, string $message, mixed $data = null)
     {
         $this->status  = $status;
         $this->message = $message;
