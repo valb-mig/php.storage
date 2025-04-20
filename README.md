@@ -40,7 +40,7 @@ This project is a simple PHP server, running inside Docker, that allows you to s
 
 - **List files in a directory:**
   ```bash
-  bin/console storage:list {directory}
+  bin/console list {directory}
   ```
 
 ## TODO
